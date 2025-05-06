@@ -4,11 +4,12 @@ pragma solidity ^0.8.13;
 import {UUPSUpgradeable} from "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
 
 /**
- * @title AlchemyProxyRegistry
+ * @title AlchemyProxyLoader
  * @author Alchemy
- * @notice A registry for getting the same address for proxies regardless of their implementation
+ * @notice A loader to getting the same address for proxies regardless of their implementation
+ * @dev To use, deploy a proxy pointing to this, then call upgradeToAndCall to the implementation
  */
-contract AlchemyProxyRegistry is UUPSUpgradeable {
+contract AlchemyProxyLoader is UUPSUpgradeable {
     address public immutable deployer;
 
     constructor(address _deployer) {
