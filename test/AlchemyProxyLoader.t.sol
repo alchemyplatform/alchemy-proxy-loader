@@ -67,10 +67,9 @@ contract AlchemyProxyLoaderTest is Test {
     function test_getDeployedProxyInitcode() public pure {
         bytes32 bytecodeHash = keccak256(
             abi.encodePacked(
-                type(ERC1967Proxy).creationCode,
-                abi.encodePacked(address(0xea8ea085589afBA8C5DA2808F150AC14fA10BA78), "")
+                type(ERC1967Proxy).creationCode, abi.encode(address(0xea8ea085589afBA8C5DA2808F150AC14fA10BA78), "")
             )
         );
-        assertEq(bytecodeHash, 0xb3fd145a437320ebc1cf7ad1887a3a263ce4003431505352568badf1e3be92cc);
+        assertEq(bytecodeHash, 0xe0452ab1053554246673c6014bfd6946ce1d0a75169735269bc9fab6083f7535);
     }
 }
