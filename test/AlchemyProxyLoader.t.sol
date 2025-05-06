@@ -61,7 +61,7 @@ contract AlchemyProxyLoaderTest is Test {
         );
 
         address predicted = Create2.computeAddress(bytes32(0), bytecodeHash, CREATE2_FACTORY);
-        assertEq(predicted, 0x658ce9D45885BCE9682e5c07c9E7982610c7aB37);
+        assertEq(predicted, 0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F);
     }
 
     function test_getDeployedProxyInitcode() public pure {
@@ -70,6 +70,6 @@ contract AlchemyProxyLoaderTest is Test {
                 type(ERC1967Proxy).creationCode, abi.encode(address(0xea8ea085589afBA8C5DA2808F150AC14fA10BA78), "")
             )
         );
-        assertEq(bytecodeHash, 0xe0452ab1053554246673c6014bfd6946ce1d0a75169735269bc9fab6083f7535);
+        assertEq(bytecodeHash, 0xfffaf8b8e37203f5fe0847c9dd2263b193696d77f7dd48fd0cc06ba44478620b);
     }
 }
