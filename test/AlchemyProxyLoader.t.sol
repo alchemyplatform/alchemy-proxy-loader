@@ -54,13 +54,23 @@ contract AlchemyProxyLoaderTest is Test {
 
     function test_getDeployedAddress() public pure {
         bytes32 bytecodeHash = keccak256(
-            abi.encode(
+            abi.encodePacked(
                 type(AlchemyProxyLoader).creationCode,
                 bytes32(uint256(uint160(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C)))
             )
         );
 
         address predicted = Create2.computeAddress(bytes32(0), bytecodeHash, CREATE2_FACTORY);
-        assertEq(predicted, 0xea8ea085589afBA8C5DA2808F150AC14fA10BA78);
+        assertEq(predicted, 0x658ce9D45885BCE9682e5c07c9E7982610c7aB37);
+    }
+
+    function test_getDeployedProxyInitcode() public pure {
+        bytes32 bytecodeHash = keccak256(
+            abi.encodePacked(
+                type(ERC1967Proxy).creationCode,
+                abi.encodePacked(address(0xea8ea085589afBA8C5DA2808F150AC14fA10BA78), "")
+            )
+        );
+        assertEq(bytecodeHash, 0xb3fd145a437320ebc1cf7ad1887a3a263ce4003431505352568badf1e3be92cc);
     }
 }
