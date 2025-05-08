@@ -64,12 +64,24 @@ contract AlchemyProxyLoaderTest is Test {
         assertEq(predicted, 0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F);
     }
 
-    function test_getDeployedProxyInitcode() public pure {
+    function test_getDeployedProxyInitcode() public {
+        vm.startPrank(CREATE2_FACTORY);
+
         bytes32 bytecodeHash = keccak256(
             abi.encodePacked(
-                type(ERC1967Proxy).creationCode, abi.encode(address(0xea8ea085589afBA8C5DA2808F150AC14fA10BA78), "")
+                type(ERC1967Proxy).creationCode, abi.encode(address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), "")
             )
         );
-        assertEq(bytecodeHash, 0xfffaf8b8e37203f5fe0847c9dd2263b193696d77f7dd48fd0cc06ba44478620b);
+        assertEq(bytecodeHash, 0x6baa9034371dd10a8709f2482eb766c1feb485e65df35a46ecc2b43539ca54ec);
+        address proxyLoader =
+            address(new AlchemyProxyLoader{salt: 0}(address(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C)));
+        console.logAddress(proxyLoader);
+
+        address proxy = address(
+            new ERC1967Proxy{salt: 0x0000000000000000000000000000000000000000d0cdac1fc979ce15f752cd13}(
+                address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), ""
+            )
+        );
+        assertEq(proxy, 0x0000000000Fe335F59B373055a9865eE4c2cFb3e);
     }
 }

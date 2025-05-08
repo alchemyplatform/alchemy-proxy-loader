@@ -11,8 +11,8 @@ contract DeployScript is Script {
     address public proxyLoaderOwner = 0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C;
     address public expectedDeployAddress = 0x658ce9D45885BCE9682e5c07c9E7982610c7aB37;
 
-    bytes32 public proxySalt = 0; // TODO
-    address public proxyAddress = address(0); // TODO
+    bytes32 public proxySalt = 0x0000000000000000000000000000000000000000d0cdac1fc979ce15f752cd13;
+    address public proxyAddress = 0x0000000000Fe335F59B373055a9865eE4c2cFb3e;
 
     function run() public {
         address proxyLoader = address(new AlchemyProxyLoader{salt: 0}(proxyLoaderOwner));
