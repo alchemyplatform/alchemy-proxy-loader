@@ -14,6 +14,9 @@ contract DeployScript is Script {
     bytes32 public proxySalt = 0x0000000000000000000000000000000000000000d0cdac1fc979ce15f752cd13;
     address public proxyAddress = 0x0000000000Fe335F59B373055a9865eE4c2cFb3e;
 
+    bytes32 public proxySalt2 = 0x000000000000000000000000000000000000000048994d99a8c95651d4d72027;
+    address public proxyAddress2 = 0x0000000000785AaAA2db533cF000766a0B67DC28;
+
     function run() public {
         address proxyLoader = address(new AlchemyProxyLoader{salt: 0}(proxyLoaderOwner));
 
@@ -29,6 +32,12 @@ contract DeployScript is Script {
 
         if (proxy != proxyAddress) {
             revert(string(abi.encodePacked("Proxy deployed to: ", proxy, " instead of ", proxyAddress)));
+        }
+
+        address proxy2 = address(new ERC1967Proxy{salt: proxySalt}(proxyLoader, ""));
+
+        if (proxy2 != proxyAddress2) {
+            revert(string(abi.encodePacked("Proxy deployed to: ", proxy2, " instead of ", proxyAddress2)));
         }
     }
 }
