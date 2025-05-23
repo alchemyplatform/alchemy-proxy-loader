@@ -83,5 +83,12 @@ contract AlchemyProxyLoaderTest is Test {
             )
         );
         assertEq(proxy, 0x0000000000Fe335F59B373055a9865eE4c2cFb3e);
+
+        address proxy2 = address(
+            new ERC1967Proxy{salt: 0x000000000000000000000000000000000000000048994d99a8c95651d4d72027}(
+                address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), ""
+            )
+        );
+        assertEq(proxy2, 0x0000000000785AaAA2db533cF000766a0B67DC28);
     }
 }
