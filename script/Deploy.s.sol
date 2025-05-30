@@ -35,7 +35,8 @@ contract DeployScript is Script {
 
         if (_isProd) {
             if (expectedProdDeployAddress.code.length == 0) {
-                address proxyLoader = address(new AlchemyProxyLoader{salt: 0}(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C));
+                address proxyLoader =
+                    address(new AlchemyProxyLoader{salt: 0}(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C));
 
                 if (proxyLoader != expectedProdDeployAddress) {
                     revert(
@@ -63,7 +64,6 @@ contract DeployScript is Script {
                     revert(string(abi.encodePacked("Proxy2 deployed to: ", proxy2, " instead of ", proxyAddress2)));
                 }
             }
-
         } else {
             if (expectedStgDeployAddress.code.length == 0) {
                 address proxyLoader2 = address(new AlchemyProxyLoader{salt: 0}(stgProxyLoaderOwner));
@@ -71,7 +71,9 @@ contract DeployScript is Script {
                 if (proxyLoader2 != expectedStgDeployAddress) {
                     revert(
                         string(
-                            abi.encodePacked("Proxy loader 2 deployed to: ", proxyLoader2, " instead of ", stgProxyLoaderOwner)
+                            abi.encodePacked(
+                                "Proxy loader 2 deployed to: ", proxyLoader2, " instead of ", stgProxyLoaderOwner
+                            )
                         )
                     );
                 }
