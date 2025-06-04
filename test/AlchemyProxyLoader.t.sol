@@ -61,7 +61,7 @@ contract AlchemyProxyLoaderTest is Test {
         );
 
         address predicted = Create2.computeAddress(bytes32(0), bytecodeHash, CREATE2_FACTORY);
-        assertEq(predicted, 0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F);
+        assertEq(predicted, 0x55954b89aA546269D8eDA34d7b97C948fab74a0D);
     }
 
     function test_getDeployedProxyInitcode() public {
@@ -69,26 +69,24 @@ contract AlchemyProxyLoaderTest is Test {
 
         bytes32 bytecodeHash = keccak256(
             abi.encodePacked(
-                type(ERC1967Proxy).creationCode, abi.encode(address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), "")
+                type(ERC1967Proxy).creationCode, abi.encode(address(0x55954b89aA546269D8eDA34d7b97C948fab74a0D), "")
             )
         );
-        assertEq(bytecodeHash, 0x6baa9034371dd10a8709f2482eb766c1feb485e65df35a46ecc2b43539ca54ec);
-        address proxyLoader =
-            address(new AlchemyProxyLoader{salt: 0}(address(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C)));
-        console.logAddress(proxyLoader);
+        assertEq(bytecodeHash, 0x11e76045975d22e464b853fc71f1d678388eb5612cff2c12789d82fcf3f5ffc0);
+        new AlchemyProxyLoader{salt: 0}(address(0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C));
 
         address proxy = address(
-            new ERC1967Proxy{salt: 0x0000000000000000000000000000000000000000d0cdac1fc979ce15f752cd13}(
-                address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), ""
+            new ERC1967Proxy{salt: 0x00000000000000000000000000000000000000005aff81b0e059e437fe647c08}(
+                address(0x55954b89aA546269D8eDA34d7b97C948fab74a0D), ""
             )
         );
-        assertEq(proxy, 0x0000000000Fe335F59B373055a9865eE4c2cFb3e);
+        assertEq(proxy, 0x00000000000667F27D4DB42334ec11a25db7EBb4);
 
         address proxy2 = address(
-            new ERC1967Proxy{salt: 0x000000000000000000000000000000000000000048994d99a8c95651d4d72027}(
-                address(0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F), ""
+            new ERC1967Proxy{salt: 0x00000000000000000000000000000000000000001d26e644345a7729701286e0}(
+                address(0x55954b89aA546269D8eDA34d7b97C948fab74a0D), ""
             )
         );
-        assertEq(proxy2, 0x0000000000785AaAA2db533cF000766a0B67DC28);
+        assertEq(proxy2, 0x0000000000ce04e2359130e7d0204A5249958921);
     }
 }

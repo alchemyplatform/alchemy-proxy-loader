@@ -9,24 +9,24 @@ import {console} from "forge-std/console.sol";
 
 contract DeployScript is Script {
     address public prodProxyLoaderOwner = 0xDdF32240B4ca3184De7EC8f0D5Aba27dEc8B7A5C;
-    address public expectedProdDeployAddress = 0x39A37979BB4a14e3Cdd1D7Ba8475f588f5b13E5F;
+    address public expectedProdDeployAddress = 0x55954b89aA546269D8eDA34d7b97C948fab74a0D;
     address public stgProxyLoaderOwner = 0x4F0cF2a1D11De183E989fF6287cc0973670f0583;
-    address public expectedStgDeployAddress = 0x29902f08df26E5984dBB58131EcEeA754d15CB16;
+    address public expectedStgDeployAddress = 0x4eb21516cdd2355CeD7a82018854BBe2E6Df018c;
     bool internal _isProd;
 
     // Prod, 0.7 EP
-    bytes32 public proxySalt = 0x0000000000000000000000000000000000000000d0cdac1fc979ce15f752cd13;
-    address public proxyAddress = 0x0000000000Fe335F59B373055a9865eE4c2cFb3e;
+    bytes32 public proxySalt = 0x00000000000000000000000000000000000000005aff81b0e059e437fe647c08;
+    address public proxyAddress = 0x00000000000667F27D4DB42334ec11a25db7EBb4;
 
     // Prod, 0.6 EP
-    bytes32 public proxySalt2 = 0x000000000000000000000000000000000000000048994d99a8c95651d4d72027;
-    address public proxyAddress2 = 0x0000000000785AaAA2db533cF000766a0B67DC28;
+    bytes32 public proxySalt2 = 0x00000000000000000000000000000000000000001d26e644345a7729701286e0;
+    address public proxyAddress2 = 0x0000000000ce04e2359130e7d0204A5249958921;
 
     // Staging, 0.7 EP
-    address public proxyAddress3 = 0x62aB4822EBc25CC30b56D874Eb36D66AaF27372e;
+    address public proxyAddress3 = 0x0AFc5739C3312Fc5B0900fD9CA4b4e4b2B2aD085;
 
     // Staging, 0.6 EP
-    address public proxyAddress4 = 0x990A645f1d25b6BA0CA691B1353C0e3148Dd6d10;
+    address public proxyAddress4 = 0xc4C4202DD4515678C9415d8Ebc8be116bd0d1828;
 
     function run() public {
         vm.startBroadcast();
