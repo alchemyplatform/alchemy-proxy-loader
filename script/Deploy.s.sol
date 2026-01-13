@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {AlchemyProxyLoader} from "../src/AlchemyProxyLoader.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
-import {Script} from "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {DeployConstants} from "./DeployConstants.sol";
 
 contract DeployScript is Script, DeployConstants {
@@ -32,6 +32,8 @@ contract DeployScript is Script, DeployConstants {
                     )
                 );
             }
+
+            console.log("Proxy loader implementation deployed to: ", proxyLoader);
         }
 
         for (uint256 i = 0; i < deploySalts.length; i++) {
@@ -44,6 +46,8 @@ contract DeployScript is Script, DeployConstants {
                         )
                     );
                 }
+
+                console.log("Proxy deployed to: ", proxy);
             }
         }
 
