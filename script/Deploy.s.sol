@@ -13,6 +13,7 @@ contract DeployScript is Script, DeployConstants {
         vm.startBroadcast();
 
         _isProd = vm.envBool("IS_PROD");
+        console.log("Deploying to: ", _isProd ? "Prod" : "Staging");
         (
             bytes32[4] storage deploySalts,
             address[4] storage expectedProxyAddresses,
@@ -23,12 +24,13 @@ contract DeployScript is Script, DeployConstants {
         if (expectedDeployAddress.code.length == 0) {
             address proxyLoader = address(new AlchemyProxyLoader{salt: 0}(loaderOwner));
 
-            if (proxyLoader != expectedProdDeployAddress) {
+            if (proxyLoader != expectedDeployAddress) {
                 revert(
-                    string(
-                        abi.encodePacked(
-                            "Proxy loader deployed to: ", proxyLoader, " instead of ", expectedProdDeployAddress
-                        )
+                    string.concat(
+                        "Proxy loader deployed to: ",
+                        vm.toString(proxyLoader),
+                        " instead of ",
+                        vm.toString(expectedDeployAddress)
                     )
                 );
             }
@@ -41,8 +43,11 @@ contract DeployScript is Script, DeployConstants {
                 address proxy = address(new ERC1967Proxy{salt: deploySalts[i]}(expectedDeployAddress, ""));
                 if (proxy != expectedProxyAddresses[i]) {
                     revert(
-                        string(
-                            abi.encodePacked("Proxy deployed to: ", proxy, " instead of ", expectedProxyAddresses[i])
+                        string.concat(
+                            "Proxy deployed to: ",
+                            vm.toString(proxy),
+                            " instead of ",
+                            vm.toString(expectedProxyAddresses[i])
                         )
                     );
                 }

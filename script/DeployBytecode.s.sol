@@ -25,7 +25,7 @@ contract DeployProxyFromBytecode is Script, DeployConstants {
 
         // Check if CREATE2 deployer exists
         if (Create2Deployer.DEPLOYER.code.length == 0) {
-            revert(string(abi.encodePacked("CREATE2 deployer not found at:", Create2Deployer.DEPLOYER)));
+            revert(string.concat("CREATE2 deployer not found at: ", vm.toString(Create2Deployer.DEPLOYER)));
         }
 
         _isProd = vm.envBool("IS_PROD");
@@ -41,10 +41,11 @@ contract DeployProxyFromBytecode is Script, DeployConstants {
                 _deployFromBytecode("bytecode/AlchemyProxyLoader.bin", abi.encode(loaderOwner), bytes32(uint256(0)));
             if (proxyLoader != expectedDeployAddress) {
                 revert(
-                    string(
-                        abi.encodePacked(
-                            "Proxy loader deployed to: ", proxyLoader, " instead of ", expectedDeployAddress
-                        )
+                    string.concat(
+                        "Proxy loader deployed to: ",
+                        vm.toString(proxyLoader),
+                        " instead of ",
+                        vm.toString(expectedDeployAddress)
                     )
                 );
             }
@@ -57,8 +58,11 @@ contract DeployProxyFromBytecode is Script, DeployConstants {
                 );
                 if (proxy != expectedProxyAddresses[i]) {
                     revert(
-                        string(
-                            abi.encodePacked("Proxy deployed to: ", proxy, " instead of ", expectedProxyAddresses[i])
+                        string.concat(
+                            "Proxy deployed to: ",
+                            vm.toString(proxy),
+                            " instead of ",
+                            vm.toString(expectedProxyAddresses[i])
                         )
                     );
                 }
